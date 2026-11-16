@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoCoMangas — Центр паровых коктейлей | Нижнекамск</title>
+  <meta name="description" content="CoCoMangas — уютный кальян-бар и лаунж в Нижнекамске. Авторские паровые коктейли, чаи, коктейли, закуски. просп. Мира, 93В, 2 этаж.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #141416;
+      --bg-elevated: #1c1c1f;
+      --text: #f5f5f7;
+      --text-muted: #b4b4bc;
+      --accent: #e8a838;
+      --accent-soft: rgba(232, 168, 56, 0.15);
+      --neon: #ff5c5c;
+      --neon-soft: rgba(255, 92, 92, 0.2);
+      --border: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      z-index: 9999;
+      font-weight: 600;
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: var(--transition);
+      background: transparent;
+    }
+
+    header.scrolled {
+      background: rgba(10, 10, 11, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 0;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--text);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #d4922a);
+      color: #0a0a0b;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 168, 56, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .burger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: var(--transition);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 6rem 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(232, 168, 56, 0.12), transparent),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(255, 92, 92, 0.08), transparent);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: var(--accent-soft);
+      border: 1px solid rgba(232, 168, 56, 0.3);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .hero-image-wrap:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-float {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-float strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .hero-float span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header .label {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    .about-content h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .feature-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .gallery-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(2) {
+      aspect-ratio: 4/5;
+    }
+
+    /* Menu */
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0a0a0b;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .menu-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu-card:hover {
+      border-color: rgba(232, 168, 56, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-card.hidden {
+      display: none;
+    }
+
+    .menu-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .menu-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .menu-price {
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .menu-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .menu-volume {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .menu-category-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Booking */
+    .booking {
+      background: linear-gradient(180deg, transparent, rgba(232, 168, 56, 0.04));
+    }
+
+    .booking-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* Contacts */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .contact-item h4 {
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item p,
+    .contact-item a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-item a:hover {
+      color: var(--accent);
+    }
+
+    .map-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 360px;
+      background: var(--bg-elevated);
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Amenities strip */
+    .amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      padding: 1.5rem 0;
+    }
+
+    .amenity-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 0 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer .logo {
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer .phone {
+      display: block;
+      margin: 0.75rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 11, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+
+    .mobile-nav .close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .hero-image-wrap img {
+        height: 340px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-item:nth-child(2) {
+        margin-top: 0;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#menu" class="skip-link">Перейти к меню</a>
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">CoCo<span>Mangas</span></a>
+      <nav>
+        <a href="#about">О нас</a>
+        <a href="#gallery">Атмосфера</a>
+        <a href="#menu">Меню</a>
+        <a href="#booking">Бронь</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a href="#booking" class="btn btn-primary">Забронировать</a>
+      <div class="burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close" id="closeNav">✕</button>
+    <a href="#about">О нас</a>
+    <a href="#gallery">Атмосфера</a>
+    <a href="#menu">Меню</a>
+    <a href="#booking">Бронь</a>
+    <a href="#contacts">Контакты</a>
+    <a href="#booking" class="btn btn-primary">Забронировать</a>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">Центр паровых коктейлей · Нижнекамск</div>
+        <h1>Атмосфера <span class="highlight">счастья</span><br>и лёгкого дыма</h1>
+        <p>Уютный лаунж с авторскими кальянами, чаями и коктейлями. Приглушённый свет, мягкие диваны и идеальный вечер в компании друзей.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary">Забронировать стол</a>
+          <a href="#menu" class="btn btn-outline">Смотреть меню</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>Ежедневно</strong><br>10:00 – 02:00</div>
+          <div><strong>просп. Мира, 93В</strong><br>2 этаж, «Двери Бастион»</div>
+          <div><strong>+7 (986) 928-40-44</strong><br>Бронирование</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image-wrap">
+          <img src="image.png" alt="Кальян CoCoMangas" loading="eager">
+        </div>
+        <div class="hero-float">
+          <strong>от 1100 ₽</strong>
+          <span>Паровой коктейль</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="label">О заведении</div>
+        <h2>Место, где хочется остаться</h2>
+        <p>CoCoMangas — это не просто кальянная. Это лаунж с душой, где каждый гость чувствует себя как дома.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="image-2.png" alt="Интерьер CoCoMangas">
+        </div>
+        <div class="about-content reveal">
+          <h3>Кальян. Крепкие отношения.</h3>
+          <p>Мы создали пространство для тех, кто ценит качество дыма, вкусные напитки и настоящую атмосферу. Авторские миксы, премиальные табаки и внимательный сервис.</p>
+          <p>У нас можно поиграть в настольные игры, посмотреть спорт, поработать с ноутбуком или просто отдохнуть под спокойную музыку.</p>
+          <div class="features">
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Только для взрослых
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Приглушённый свет
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Розетки
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Можно с ноутбуком
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Wi-Fi
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Кондиционер
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Настольные игры
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Крафтовое пиво
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Спортивные трансляции
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Скидочная карта
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Кофе с собой
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Бесплатная парковка
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="label">Атмосфера</div>
+        <h2>Как у нас внутри</h2>
+        <p>Приглушённый свет, мягкие кресла и огонь на экранах — всё для вашего комфорта.</p>
+      </div>
+      <div class="amenities reveal">
+        <span class="amenity-tag">Лаунж-бар</span>
+        <span class="amenity-tag">House / Lounge / Chillout</span>
+        <span class="amenity-tag">2 экрана</span>
+        <span class="amenity-tag">Оплата картой / QR / наличные</span>
+        <span class="amenity-tag">SberTips</span>
+        <span class="amenity-tag">Акции и спецпредложения</span>
+        <span class="amenity-tag">Туалет</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="label">Меню</div>
+        <h2>Всё, что есть у нас</h2>
+        <p>Выберите категорию — и найдите то, что хочется прямо сейчас.</p>
+      </div>
+
+      <div class="menu-filters" id="menuFilters"></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="label">Бронирование</div>
+        <h2>Забронируйте стол</h2>
+        <p>Оставьте заявку — мы перезвоним и подтвердим удобное время.</p>
+      </div>
+      <div class="booking-card reveal">
+        <form id="bookingForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Имя *</label>
+              <input type="text" id="name" name="name" required placeholder="Как к вам обращаться">
+            </div>
+            <div class="form-group">
+              <label for="phone">Телефон *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Дата *</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="time">Время *</label>
+              <input type="time" id="time" name="time" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="guests">Гостей</label>
+              <select id="guests" name="guests">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="occasion">Повод</label>
+              <select id="occasion" name="occasion">
+                <option value="">Не важно</option>
+                <option value="friends">Встреча с друзьями</option>
+                <option value="date">Свидание</option>
+                <option value="work">Работа / ноутбук</option>
+                <option value="party">Праздник</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Комментарий</label>
+            <textarea id="message" name="message" placeholder="Особые пожелания, предпочтения по столу..." maxlength="500"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 0.75rem;">
+            <label class="consent-label" style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+              <input type="checkbox" id="consentPd" name="consentPd" required style="margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; accent-color: var(--accent);">
+              <span>Я даю согласие на обработку персональных данных в соответствии с <a href="#legal-privacy" class="legal-link" data-legal="privacy" style="color: var(--accent); text-decoration: underline;">Политикой обработки персональных данных</a> *</span>
+            </label>
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="consent-label" style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+              <input type="checkbox" id="consentOffer" name="consentOffer" required style="margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; accent-color: var(--accent);">
+              <span>Я ознакомлен(а) с <a href="#legal-offer" class="legal-link" data-legal="offer" style="color: var(--accent); text-decoration: underline;">публичной офертой</a> *</span>
+            </label>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Мы запрашиваем только данные, необходимые для бронирования. Рассылки не отправляем. Заведение только для гостей 18+.</p>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
+          <p class="form-note">Или позвоните нам: <a href="tel:+79869284044" style="color: var(--accent);">+7 (986) 928-40-44</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="label">Контакты</div>
+        <h2>Как нас найти</h2>
+      </div>
+      <div class="contacts-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h4>Адрес</h4>
+              <p>г. Нижнекамск, проспект Мира, 93В<br>Вход вывеска «Двери Бастион», 2 этаж</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <h4>Телефон</h4>
+              <a href="tel:+79869284044">+7 (986) 928-40-44</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <h4>Режим работы</h4>
+              <p>Ежедневно с 10:00 до 02:00</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <h4>Ориентир</h4>
+              <p>ТЦ Vega, 2 этаж. Бесплатная парковка.</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-wrap reveal">
+          <iframe src="https://yandex.ru/map-widget/v1/?ll=51.7944%2C55.6375&z=16&pt=51.7944,55.6375,pm2rdm" allowfullscreen loading="lazy" title="Карта CoCoMangas"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="logo">CoCo<span>Mangas</span></div>
+      <a href="tel:+79869284044" class="phone">+7 (986) 928-40-44</a>
+      <p>просп. Мира, 93В · Нижнекамск · Центр паровых коктейлей</p>
+      <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted); max-width: 520px; margin-left: auto; margin-right: auto;">
+        Заведение для гостей 18+. Бронирование через сайт бесплатно и ни к чему не обязывает. Цены указаны в рублях, актуальны на момент публикации и могут меняться — уточняйте у персонала.
+      </p>
+      <div class="legal-links" style="display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; justify-content: center; margin: 1.5rem 0 1rem; font-size: 0.8rem;">
+        <a href="#legal-privacy" class="legal-link" data-legal="privacy" style="color: var(--text-muted);">Политика персональных данных</a>
+        <a href="#legal-offer" class="legal-link" data-legal="offer" style="color: var(--text-muted);">Публичная оферта</a>
+        <a href="#legal-return" class="legal-link" data-legal="return" style="color: var(--text-muted);">Условия возврата</a>
+        <a href="#legal-cookies" class="legal-link" data-legal="cookies" style="color: var(--text-muted);">Политика cookie</a>
+        <a href="#legal-requisites" class="legal-link" data-legal="requisites" style="color: var(--text-muted);">Реквизиты</a>
+        <a href="#legal-deletion" class="legal-link" data-legal="deletion" style="color: var(--text-muted);">Удаление данных</a>
+      </div>
+      <p style="font-size: 0.75rem; color: var(--text-muted); opacity: 0.8;">
+        Шрифты: Inter и Playfair Display (Google Fonts, открытые лицензии). Фотографии — материалы заведения. Сторонние сервисы: Яндекс.Карты (карта), Google Fonts (шрифты).
+      </p>
+      <p style="margin-top: 1rem; opacity: 0.6; font-size: 0.85rem;">© 2026 CoCoMangas. Только для гостей 18+</p>
+    </div>
+  </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookieBanner" role="dialog" aria-label="Уведомление о cookie" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 2000; background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 1rem 1.25rem; box-shadow: 0 -8px 32px rgba(0,0,0,0.4);">
+    <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+      <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 720px; margin: 0;">
+        Мы используем необходимые cookie для работы сайта и запоминания вашего выбора. Подробнее — в <a href="#legal-cookies" class="legal-link" data-legal="cookies" style="color: var(--accent); text-decoration: underline;">Политике cookie</a>.
+      </p>
+      <div style="display: flex; gap: 0.75rem; flex-shrink: 0;">
+        <button type="button" id="cookieReject" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Только необходимые</button>
+        <button type="button" id="cookieAccept" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Принять</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal modal -->
+  <div id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" style="display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; padding: 1.5rem; overflow-y: auto;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; max-width: 680px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 2rem; position: relative;">
+      <button type="button" id="legalModalClose" aria-label="Закрыть" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; line-height: 1;">✕</button>
+      <h2 id="legalModalTitle" style="font-size: 1.4rem; margin-bottom: 1.25rem; padding-right: 2rem;"></h2>
+      <div id="legalModalBody" style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.65;"></div>
+    </div>
+  </div>
+
+  <script>
+    // ========== MENU DATA ==========
+    const menuData = [
+      // Паровые коктейли
+      { cat: "Паровые коктейли", name: "Паровой коктейль", desc: "Sebero, Element, Deus, Sapphire, NaШ, ХЛГН, Jent, Сарма, Chabacco, Dark Side, Black Burn", price: "1100 ₽" },
+      { cat: "Паровые коктейли", name: "На ананасе", price: "1750 ₽" },
+      { cat: "Паровые коктейли", name: "На грейпфруте", price: "1500 ₽" },
+      { cat: "Паровые коктейли", name: "На апельсине", desc: "Каждую среду — 1100 ₽", price: "1400 ₽" },
+      { cat: "Паровые коктейли", name: "Bonche", price: "1500 ₽" },
+      { cat: "Паровые коктейли", name: "Satyr", price: "1200 ₽" },
+      { cat: "Паровые коктейли", name: "Tangiers", price: "1500 ₽" },
+      { cat: "Паровые коктейли", name: "Паровой коктейль (до 17:00)", desc: "Выгодное предложение с 10:00 до 17:00", price: "1000 ₽" },
+      { cat: "Паровые коктейли", name: "Паровой + чай (до 17:00)", price: "1100 ₽" },
+      { cat: "Паровые коктейли", name: "Паровой + лимонад (до 17:00)", price: "1450 ₽" },
+
+      // Алкогольные коктейли
+      { cat: "Алкогольные коктейли", name: "Текила Санрайз", price: "480 ₽" },
+      { cat: "Алкогольные коктейли", name: "Негрони", price: "570 ₽" },
+      { cat: "Алкогольные коктейли", name: "Кейп Кодер", price: "430 ₽" },
+      { cat: "Алкогольные коктейли", name: "Мохито классический", price: "570 ₽" },
+      { cat: "Алкогольные коктейли", name: "Мохито", price: "590 ₽" },
+      { cat: "Алкогольные коктейли", name: "Том Коллинз", price: "450 ₽" },
+      { cat: "Алкогольные коктейли", name: "Апероль Спритц", price: "530 ₽" },
+      { cat: "Алкогольные коктейли", name: "Секс на пляже", price: "420 ₽" },
+      { cat: "Алкогольные коктейли", name: "Пина Колада", price: "480 ₽" },
+      { cat: "Алкогольные коктейли", name: "Авторский Cocomangas Tai", price: "1400 ₽" },
+      { cat: "Алкогольные коктейли", name: "Изи Спритс", price: "580 ₽" },
+      { cat: "Алкогольные коктейли", name: "Ред Эпл", price: "470 ₽" },
+      { cat: "Алкогольные коктейли", name: "Тропик Бург", price: "480 ₽" },
+      { cat: "Алкогольные коктейли", name: "Прайм", price: "460 ₽" },
+      { cat: "Алкогольные коктейли", name: "Голубая лагуна", price: "390 ₽" },
+      { cat: "Алкогольные коктейли", name: "Манговый дайкири", price: "430 ₽" },
+      { cat: "Алкогольные коктейли", name: "Люмьер Руж", price: "480 ₽" },
+      { cat: "Алкогольные коктейли", name: "Помпей", price: "470 ₽" },
+      { cat: "Алкогольные коктейли", name: "Тропик Рэй", price: "490 ₽" },
+      { cat: "Алкогольные коктейли", name: "Май Тай", price: "550 ₽" },
+      { cat: "Алкогольные коктейли", name: "Гламур", price: "530 ₽" },
+      { cat: "Алкогольные коктейли", name: "Куба Либре", price: "510 ₽" },
+      { cat: "Алкогольные коктейли", name: "Космо", price: "410 ₽" },
+      { cat: "Алкогольные коктейли", name: "Фьюжн", price: "420 ₽" },
+      { cat: "Алкогольные коктейли", name: "Виски кола", price: "450 ₽" },
+      { cat: "Алкогольные коктейли", name: "Campari тоник", price: "570 ₽" },
+      { cat: "Алкогольные коктейли", name: "Яблоко Саган-Дайля", desc: "Сбалансированная сладость яблока с лёгкой кислинкой на фоне шотландского виски", price: "430 ₽" },
+      { cat: "Алкогольные коктейли", name: "Восточный сад", desc: "Домашняя малина, кардамон, эвкалипт, эстрагон и джин", price: "460 ₽" },
+      { cat: "Алкогольные коктейли", name: "Алоэ полынь", desc: "Алоэ, полынь, текила и клубника", price: "480 ₽" },
+      { cat: "Алкогольные коктейли", name: "Жасмин бузина", desc: "Жасмин, бузина и сухое игристое", price: "460 ₽" },
+      { cat: "Алкогольные коктейли", name: "Апельсин ваниль", desc: "Кислинка апельсина и кремовая ваниль", price: "490 ₽" },
+
+      // Лимонады
+      { cat: "Лимонады", name: "Мохито классический", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Грейпфрут–ананас", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Манго–маракуйя", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Манго–ананас", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Земляника–ананас", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Клубника–лайм", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Малина–мята", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Гранат–смородина", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Клюква–апельсин", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Огурец–апельсин", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Ежевика–фиалка", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Яблоко–киви", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Черника–мята", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Вишня–мята", volume: "450 мл", price: "420 ₽" },
+      { cat: "Лимонады", name: "Мохито классический", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Грейпфрут–ананас", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Манго–маракуйя", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Манго–ананас", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Земляника–ананас", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Клубника–лайм", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Малина–мята", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Гранат–смородина", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Клюква–апельсин", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Огурец–апельсин", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Ежевика–фиалка", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Яблоко–киви", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Черника–мята", volume: "1000 мл", price: "700 ₽" },
+      { cat: "Лимонады", name: "Вишня–мята", volume: "1000 мл", price: "700 ₽" },
+
+      // Морсы
+      { cat: "Морсы", name: "Клубнично–базиликовый", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Бананово–грушевый", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Смородиновый", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Облепиховый", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Клюквенный", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Малиновый", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Ежевичный", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Черничный", volume: "450 мл", price: "370 ₽" },
+      { cat: "Морсы", name: "Клубнично–базиликовый", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Бананово–грушевый", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Смородиновый", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Облепиховый", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Клюквенный", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Малиновый", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Ежевичный", volume: "1000 мл", price: "580 ₽" },
+      { cat: "Морсы", name: "Черничный", volume: "1000 мл", price: "580 ₽" },
+
+      // Авторские чаи
+      { cat: "Авторские чаи", name: "Облепиховый", desc: "Чёрный чай, облепиховое пюре, ягоды, апельсин, корица", price: "470 ₽" },
+      { cat: "Авторские чаи", name: "Клюквенный", desc: "Чёрный чай, клюквенное пюре, ягоды, апельсин, корица", price: "480 ₽" },
+      { cat: "Авторские чаи", name: "Вишнёвый", desc: "Чёрный вишнёвый чай, пюре, ягоды, апельсин, корица", price: "470 ₽" },
+      { cat: "Авторские чаи", name: "Согревающий", desc: "Чёрный с бергамотом, апельсин, лимон, мёд, корица, имбирь, мята", price: "510 ₽" },
+      { cat: "Авторские чаи", name: "Малина-имбирь", desc: "Чёрный чай, малиновое пюре, ягоды, апельсин, корица, имбирь, мята", price: "490 ₽" },
+      { cat: "Авторские чаи", name: "Клубника-базилик", desc: "Чёрный чай, пюре с базиликом, ягоды, апельсин, корица, мята", price: "480 ₽" },
+      { cat: "Авторские чаи", name: "Банан-груша", desc: "Зелёный чай, пюре банан-груша, бутоны роз, корица, мята, апельсин", price: "480 ₽" },
+      { cat: "Авторские чаи", name: "Грейпфрут-апельсин", desc: "Фруктовый красный чай, пюре, цитрусы, корица", price: "480 ₽" },
+      { cat: "Авторские чаи", name: "Гранат-смородина", desc: "Чёрный чай, пюре, ягоды, апельсин, корица, мята", price: "490 ₽" },
+      { cat: "Авторские чаи", name: "Ежевика-черника", desc: "Чёрный чай, пюре и ягоды, апельсин, корица, мята", price: "480 ₽" },
+      { cat: "Авторские чаи", name: "Яблоко-киви", desc: "Зелёный чай «плод кактуса», пюре яблока и киви", price: "470 ₽" },
+      { cat: "Авторские чаи", name: "Хонг Бао Ши", desc: "Премиальный авторский чай на основе вишнёвого шу пуэра с ягодами и пюре вишни", price: "720 ₽" },
+      { cat: "Авторские чаи", name: "Лесные ягоды", desc: "Премиальный шу пуэр со смородиной, малиной, клюквой, мятой, гибискусом и пюре малины", price: "750 ₽" },
+      { cat: "Авторские чаи", name: "Вечерний Те Гуань Инь", desc: "Те Гуаньинь с гибискусом, апельсином, мятой и пюре манго-маракуйя", price: "750 ₽" },
+      { cat: "Авторские чаи", name: "Габба с цветами и мёдом", desc: "Габба медовая с бутонами роз Мэй Гуй, корицей и мёдом", price: "770 ₽" },
+      { cat: "Авторские чаи", name: "Домашний", desc: "Чёрный чай, мята, розмарин, шафран, имбирь, душица, лимон, мёд, шиповник", price: "610 ₽" },
+      { cat: "Авторские чаи", name: "Мохито", desc: "Зелёный улун, лайм, мята, лемонграсс, тимьян", price: "580 ₽" },
+      { cat: "Авторские чаи", name: "Массала", desc: "Чёрный чай массала со специями, корица, молоко, мёд", price: "580 ₽" },
+      { cat: "Авторские чаи", name: "Тайга саунд", desc: "Ассоциация с берёзой, липой, тимьяном, шиповником", price: "450 ₽" },
+      { cat: "Авторские чаи", name: "Черника–лаванда", desc: "Черника, морской бриз, лаванда и мята", price: "450 ₽" },
+      { cat: "Авторские чаи", name: "Тибетское солнце", desc: "Помело, манго и ромашка", price: "450 ₽" },
+
+      // Китайский чай
+      { cat: "Китайский чай", name: "Габа медовая", desc: "Среднеферментированный арома улун (Тайвань)", price: "850 ₽" },
+      { cat: "Китайский чай", name: "Те Гуань Инь", desc: "Слабоферментированный улун", price: "800 ₽" },
+      { cat: "Китайский чай", name: "Цзинь Цзюнь Мэй (Золотые брови)", desc: "Красный китайский чай", price: "750 ₽" },
+      { cat: "Китайский чай", name: "Да Хун Пао", desc: "Уишаньский тёмный улун сильного огня", price: "760 ₽" },
+      { cat: "Китайский чай", name: "Гу Шу Бай Хао", desc: "Белый чай из крупных почек", price: "780 ₽" },
+      { cat: "Китайский чай", name: "Шу Пуэр Гун Тин", desc: "Молодой зрелый пуэр из мелких типсов", price: "700 ₽" },
+      { cat: "Китайский чай", name: "Тай Пин Хоу Куй", desc: "Неферментированный зелёный чай", price: "800 ₽" },
+      { cat: "Китайский чай", name: "Красный чай с диким перцем", desc: "Лёгкий цитрусовый аромат", price: "780 ₽" },
+      { cat: "Китайский чай", name: "Габа клубничная", desc: "Среднеферментированный арома улун (Тайвань)", price: "850 ₽" },
+      { cat: "Китайский чай", name: "Габа Бриллиант", desc: "Светлый среднеферментированный улун средней прожарки", price: "850 ₽" },
+      { cat: "Китайский чай", name: "Вишнёвый шу пуэр", price: "850 ₽" },
+      { cat: "Китайский чай", name: "Шу пуэр с лесными ягодами", price: "900 ₽" },
+      { cat: "Китайский чай", name: "Вечерний те гуань инь", price: "800 ₽" },
+
+      // Классические чаи
+      { cat: "Классические чаи", name: "Ассам Хармутти", price: "320 ₽" },
+      { cat: "Классические чаи", name: "Эрл Грей", price: "370 ₽" },
+      { cat: "Классические чаи", name: "Чай с чабрецом", price: "320 ₽" },
+      { cat: "Классические чаи", name: "Марокканский", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Татарский чай", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Молочный улун", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Клубничный улун", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Манговый улун", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Ромашка", price: "340 ₽" },
+      { cat: "Классические чаи", name: "Фруктовая смесь", price: "370 ₽" },
+      { cat: "Классические чаи", name: "Сенча", price: "320 ₽" },
+      { cat: "Классические чаи", name: "Плод кактуса", price: "370 ₽" },
+      { cat: "Классические чаи", name: "Зелёный с имбирём", price: "370 ₽" },
+      { cat: "Классические чаи", name: "Цейлонский чай", price: "320 ₽" },
+      { cat: "Классические чаи", name: "Дикая вишня", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Гибискус (Каркаде)", price: "380 ₽" },
+      { cat: "Классические чаи", name: "Пряный глинтвейн", price: "370 ₽" },
+      { cat: "Классические чаи", name: "Вишнёвый пунш", price: "390 ₽" },
+      { cat: "Классические чаи", name: "Добавка к чаю", desc: "Лимон, мята, имбирь, мёд, корица, апельсин, ягодное пюре, ягоды, бутоны роз, лаванда", price: "100 ₽" },
+
+      // Кофе
+      { cat: "Кофе", name: "Эспрессо", volume: "50 мл", price: "230 ₽" },
+      { cat: "Кофе", name: "Американо", volume: "200 мл", price: "250 ₽" },
+      { cat: "Кофе", name: "Капучино", volume: "200 мл", price: "300 ₽" },
+      { cat: "Кофе", name: "Латте", volume: "300 мл", price: "300 ₽" },
+      { cat: "Кофе", name: "Раф", volume: "300 мл", price: "370 ₽" },
+      { cat: "Кофе", name: "Гляссе", volume: "300 мл", price: "370 ₽" },
+      { cat: "Кофе", name: "Айс кофе", price: "350 ₽" },
+      { cat: "Кофе", name: "Ice Latte", desc: "Эспрессо, молоко, сахар, лёд, маршмеллоу, корица, сиропы на выбор", price: "280 ₽" },
+      { cat: "Кофе", name: "Halvanilla", desc: "Эспрессо, молоко, пюре халва-ваниль, лёд, маршмеллоу", price: "290 ₽" },
+      { cat: "Кофе", name: "Bamble", desc: "Эспрессо, апельсиновый сок, карамель, лёд, апельсин", price: "300 ₽" },
+      { cat: "Кофе", name: "Razz", desc: "Эспрессо, молоко, малиновое пюре, лёд, малина", price: "300 ₽" },
+
+      // Смузи
+      { cat: "Смузи", name: "Манго-маракуйя с семечками", price: "460 ₽" },
+      { cat: "Смузи", name: "Малиновый", price: "460 ₽" },
+      { cat: "Смузи", name: "Клубника-банан", price: "460 ₽" },
+      { cat: "Смузи", name: "Киви-банан", price: "460 ₽" },
+      { cat: "Смузи", name: "Груша-банан", price: "460 ₽" },
+      { cat: "Смузи", name: "Манго-банан", price: "460 ₽" },
+      { cat: "Смузи", name: "Клубника-киви", price: "460 ₽" },
+      { cat: "Смузи", name: "Малиновый мохито", price: "430 ₽" },
+      { cat: "Смузи", name: "Киви–яблоко", price: "430 ₽" },
+
+      // Молочные коктейли
+      { cat: "Молочные коктейли", name: "Вишня-шоколад", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Клубничный", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Тропический", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Фисташковый", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Малина-банан", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Шоколад – солёная карамель", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Персик – миндаль", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Клубника – ваниль", price: "430 ₽" },
+      { cat: "Молочные коктейли", name: "Манго – маракуйя", price: "430 ₽" },
+
+      // Шоты
+      { cat: "Шоты", name: "Клубника с перцем", price: "240 ₽" },
+      { cat: "Шоты", name: "Смородина – мята", price: "240 ₽" },
+      { cat: "Шоты", name: "Вишня – попкорн", price: "240 ₽" },
+      { cat: "Шоты", name: "Малина – апельсин", price: "240 ₽" },
+      { cat: "Шоты", name: "Бабл гам", price: "240 ₽" },
+      { cat: "Шоты", name: "Сливочный банан", price: "240 ₽" },
+      { cat: "Шоты", name: "Лимончелло классический", price: "240 ₽" },
+      { cat: "Шоты", name: "Манго", price: "240 ₽" },
+      { cat: "Шоты", name: "Клюква", price: "240 ₽" },
+      { cat: "Шоты", name: "Перцовая", price: "240 ₽" },
+      { cat: "Шоты", name: "Оранчелло", price: "240 ₽" },
+      { cat: "Шоты", name: "Маракуевка", price: "240 ₽" },
+      { cat: "Шоты", name: "Сет из 6 шт", price: "1300 ₽" },
+
+      // Десерты
+      { cat: "Десерты", name: "Медовик", price: "390 ₽" },
+      { cat: "Десерты", name: "Молочная девочка", desc: "С малиновой крошкой", price: "390 ₽" },
+      { cat: "Десерты", name: "Морковный", price: "390 ₽" },
+      { cat: "Десерты", name: "Чёрный лес", desc: "С вишнёвой прослойкой", price: "390 ₽" },
+      { cat: "Десерты", name: "Мороженое ванильный пломбир", price: "250 ₽" },
+      { cat: "Десерты", name: "Чизкейк классический", price: "290 ₽" },
+      { cat: "Десерты", name: "Чизкейк шоколадный", price: "290 ₽" },
+      { cat: "Десерты", name: "Чизкейк арахисово-карамельный", price: "310 ₽" },
+      { cat: "Десерты", name: "Наполеон", price: "390 ₽" },
+      { cat: "Десерты", name: "Дубайский", price: "400 ₽" },
+      { cat: "Десерты", name: "Красный бархат", price: "350 ₽" },
+      { cat: "Десерты", name: "Сникерс", price: "360 ₽" },
+      { cat: "Десерты", name: "Меренговый рулет", price: "370 ₽" },
+      { cat: "Десерты", name: "Три шоколада", price: "380 ₽" },
+      { cat: "Десерты", name: "Клубника-йогурт", price: "390 ₽" },
+      { cat: "Десерты", name: "Тирамису", price: "360 ₽" },
+      { cat: "Десерты", name: "Рафаэлло", price: "360 ₽" },
+
+      // Закуски
+      { cat: "Закуски", name: "Пивная тарелка", desc: "Вяленое мясо курица, смесь жареный/копчёный арахис, фисташки, чипсы", price: "710 ₽" },
+      { cat: "Закуски", name: "Вяленое мясо (курица)", price: "360 ₽" },
+      { cat: "Закуски", name: "Чипсы в ассортименте", price: "250 ₽" },
+      { cat: "Закуски", name: "Фисташки", price: "360 ₽" },
+      { cat: "Закуски", name: "Смесь жареный/копчёный арахис", price: "230 ₽" },
+
+      // Пиво
+      { cat: "Пиво", name: "Glether Nut Butter", desc: "алк. 5,5%", price: "400 ₽" },
+      { cat: "Пиво", name: "Glether Milk of Amnesia V Tropic", desc: "алк. 5,5%", price: "400 ₽" },
+      { cat: "Пиво", name: "Glether Heidegger Hell", desc: "алк. 4,7%", price: "370 ₽" },
+      { cat: "Пиво", name: "Glether Blue Monkey", desc: "алк. 5,4%", price: "380 ₽" },
+      { cat: "Пиво", name: "Glether Chtrie Cherry", desc: "алк. 5,0%", price: "390 ₽" },
+
+      // Крепкий алкоголь
+      { cat: "Крепкий алкоголь", name: "Jack Daniels (США, 40%)", price: "410 ₽" },
+      { cat: "Крепкий алкоголь", name: "William Lawson’s (Шотландия, 40%)", price: "350 ₽" },
+      { cat: "Крепкий алкоголь", name: "William Lawson’s Super Spiced", price: "360 ₽" },
+      { cat: "Крепкий алкоголь", name: "Beluga Noble (Россия, 40%)", price: "340 ₽" },
+      { cat: "Крепкий алкоголь", name: "Архангельская Северная выдержка", price: "210 ₽" },
+      { cat: "Крепкий алкоголь", name: "Barcelo Blanco (Доминикана, 37,5%)", price: "340 ₽" },
+      { cat: "Крепкий алкоголь", name: "Oakheart Original (Италия, 35%)", price: "380 ₽" },
+      { cat: "Крепкий алкоголь", name: "Barrister Dry Gin (Россия, 40%)", price: "230 ₽" },
+      { cat: "Крепкий алкоголь", name: "Reve Bleu VS (Франция, 40%)", price: "400 ₽" },
+      { cat: "Крепкий алкоголь", name: "Tequila Especial Newton (Мексика, 35%)", price: "400 ₽" },
+      { cat: "Крепкий алкоголь", name: "Campari (Италия, 24%)", price: "330 ₽" },
+      { cat: "Крепкий алкоголь", name: "Aperol (Италия, 11%)", price: "320 ₽" },
+      { cat: "Крепкий алкоголь", name: "Martini Fiero", price: "310 ₽" },
+      { cat: "Крепкий алкоголь", name: "Martini Bianco", price: "310 ₽" },
+      { cat: "Крепкий алкоголь", name: "Martini Rosso", price: "310 ₽" },
+
+      // Вино
+      { cat: "Вино", name: "Sungarden Pfalz Riesling", desc: "Полусухое, Германия", price: "2350 ₽" },
+      { cat: "Вино", name: "Sungarden Sauvignon Blanc", desc: "Полусухое, ЮАР", price: "2300 ₽" },
+      { cat: "Вино", name: "Chateau Tamagne Brut", desc: "Белое сухое, Россия", price: "1500 ₽" },
+      { cat: "Вино", name: "Chateau Tamagne Semi-Sweet Blanc", desc: "Белое полусладкое, Россия", price: "1500 ₽" },
+      { cat: "Вино", name: "Schenk Italia Chianti Casteltorro", desc: "Сухое, Италия", price: "2450 ₽" },
+      { cat: "Вино", name: "Geo Batono Kindzmarauli", desc: "Полусладкое, Грузия", price: "2250 ₽" },
+      { cat: "Вино", name: "Casteltorre Pinot Grigio Rose", desc: "Сухое, Италия", price: "2450 ₽" },
+      { cat: "Вино", name: "Вино красное/белое по бокалам", price: "550 ₽" },
+
+      // Напитки
+      { cat: "Напитки", name: "Coca-Cola", volume: "250 мл", price: "240 ₽" },
+      { cat: "Напитки", name: "Coca-Cola Zero", volume: "250 мл", price: "240 ₽" },
+      { cat: "Напитки", name: "Sprite", volume: "250 мл", price: "240 ₽" },
+      { cat: "Напитки", name: "Fanta", volume: "330 мл", price: "240 ₽" },
+      { cat: "Напитки", name: "Rich Tonic", volume: "330 мл", price: "230 ₽" },
+      { cat: "Напитки", name: "Rich Bitter лимон", volume: "330 мл", price: "230 ₽" },
+      { cat: "Напитки", name: "Rich Bitter мандарин", volume: "330 мл", price: "230 ₽" },
+      { cat: "Напитки", name: "Burn", volume: "449 мл", price: "270 ₽" },
+      { cat: "Напитки", name: "Вода Aqua без/газ", volume: "449 мл", price: "220 ₽" },
+      { cat: "Напитки", name: "Rich в ассортименте", volume: "250 мл", price: "190 ₽" },
+      { cat: "Напитки", name: "Rich в ассортименте", volume: "1000 мл", price: "400 ₽" },
+      { cat: "Напитки", name: "Апельсиновый фреш", volume: "400 мл", price: "400 ₽" },
+
+      // Сеты
+      { cat: "Сеты", name: "Cocomangas", price: "1350 ₽" },
+      { cat: "Сеты", name: "Текила Санрайз", price: "1350 ₽" },
+      { cat: "Сеты", name: "Ежевика – лайм", price: "1350 ₽" },
+      { cat: "Сеты", name: "Пина Колада", price: "1350 ₽" },
+      { cat: "Сеты", name: "Клюква – малина", price: "1350 ₽" },
+
+      // Сезонные миксы
+      { cat: "Сезонные миксы", name: "Дачное лето", desc: "Виноград / Чернослив / Арбуз — стоимость уточняйте", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Пятничный вечер", desc: "Джин / Малина / Лимон / Смородина", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Мангас–ти", desc: "Зелёный чай / Персик / Манго", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Августовское солнце", desc: "Клубника / Ирга / Земляника", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Июльский вайб", desc: "Грейпфрут / Барбарис / Клюква", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Июньский день", desc: "Лаймовый йогурт / Фейхоа", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Красный скитлс", desc: "Скитлс / Клубничная газировка / Кизил", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Время отдохнуть", desc: "Папайя / Манго / Ананас", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Тропик–мамба", desc: "Папайя / Лимон / Арбузный Холлс", price: "по запросу" },
+      { cat: "Сезонные миксы", name: "Панама", desc: "Фруктовый салат / Апельсин / Ежевика", price: "по запросу" },
+    ];
+
+    const categories = ["Все", ...new Set(menuData.map(i => i.cat))];
+
+    // Render filters
+    const filtersEl = document.getElementById("menuFilters");
+    categories.forEach((cat, i) => {
+      const btn = document.createElement("button");
+      btn.className = "filter-btn" + (i === 0 ? " active" : "");
+      btn.textContent = cat;
+      btn.dataset.cat = cat;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(cat);
+      });
+      filtersEl.appendChild(btn);
+    });
+
+    function renderMenu(filter = "Все") {
+      const grid = document.getElementById("menuGrid");
+      grid.innerHTML = "";
+      const items = filter === "Все" ? menuData : menuData.filter(i => i.cat === filter);
+      items.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "menu-card";
+        card.innerHTML = `
+          <div class="menu-category-label">${item.cat}</div>
+          <div class="menu-card-header">
+            <h4>${item.name}</h4>
+            <span class="menu-price">${item.price}</span>
+          </div>
+          ${item.volume ? `<div class="menu-volume">${item.volume}</div>` : ""}
+          ${item.desc ? `<div class="menu-desc">${item.desc}</div>` : ""}
+        `;
+        grid.appendChild(card);
+        setTimeout(() => card.classList.add("visible"), 30 + idx * 25);
+      });
+    }
+
+    renderMenu();
+
+    // Header scroll
+    const header = document.getElementById("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    });
+
+    // Mobile nav
+    const burger = document.getElementById("burger");
+    const mobileNav = document.getElementById("mobileNav");
+    const closeNav = document.getElementById("closeNav");
+    burger.addEventListener("click", () => mobileNav.classList.add("open"));
+    closeNav.addEventListener("click", () => mobileNav.classList.remove("open"));
+    mobileNav.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => mobileNav.classList.remove("open"));
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal, .gallery-item").forEach(el => observer.observe(el));
+
+    // Booking form
+    document.getElementById("bookingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!document.getElementById("consentPd").checked || !document.getElementById("consentOffer").checked) {
+        alert("Пожалуйста, отметьте обязательные согласия.");
+        return;
+      }
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      alert(`Спасибо, ${name}!\n\nЗаявка на ${date} в ${time} принята.\nМы перезвоним на ${phone} для подтверждения.\n\nИли звоните сами: +7 (986) 928-40-44`);
+      e.target.reset();
+    });
+
+    // Set min date to today
+    const dateInput = document.getElementById("date");
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.min = today;
+    dateInput.value = today;
+
+    // ========== Legal documents ==========
+    const legalDocs = {
+      privacy: {
+        title: "Политика обработки персональных данных",
+        body: `
+          <p><strong>1. Общие положения</strong></p>
+          <p>Настоящая Политика определяет порядок обработки персональных данных посетителей сайта CoCoMangas (далее — Оператор) в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».</p>
+          <p><strong>2. Какие данные мы обрабатываем</strong></p>
+          <p>При бронировании стола: имя, номер телефона, дата и время визита, количество гостей, комментарий (по желанию). Иные данные не запрашиваются.</p>
+          <p><strong>3. Цели обработки</strong></p>
+          <p>Обработка осуществляется исключительно для связи с вами по поводу бронирования и организации визита. Маркетинговые рассылки не ведутся.</p>
+          <p><strong>4. Правовые основания</strong></p>
+          <p>Обработка на основании согласия субъекта персональных данных (ст. 6 152-ФЗ).</p>
+          <p><strong>5. Срок хранения</strong></p>
+          <p>Данные хранятся не дольше, чем это необходимо для цели бронирования (как правило, до 30 дней после даты визита), либо до отзыва согласия.</p>
+          <p><strong>6. Передача третьим лицам</strong></p>
+          <p>Данные не продаются и не передаются третьим лицам, за исключением случаев, предусмотренных законом.</p>
+          <p><strong>7. Права субъекта</strong></p>
+          <p>Вы вправе запросить доступ, уточнение, блокирование или удаление своих данных, а также отозвать согласие. Для этого напишите или позвоните по контактам на сайте.</p>
+          <p><strong>8. Данные несовершеннолетних</strong></p>
+          <p>Заведение предназначено только для гостей 18+. Мы не собираем персональные данные лиц младше 18 лет. Если такие данные поступили по ошибке — сообщите нам для удаления.</p>
+          <p><strong>9. Контакты</strong></p>
+          <p>По вопросам персональных данных: +7 (986) 928-40-44, адрес: г. Нижнекамск, просп. Мира, 93В.</p>
+        `
+      },
+      offer: {
+        title: "Публичная оферта",
+        body: `
+          <p><strong>1. Предмет</strong></p>
+          <p>Настоящий документ является публичной офертой о заключении договора на услуги общественного питания и досуга (кальян, напитки, закуски) в заведении CoCoMangas.</p>
+          <p><strong>2. Акцепт</strong></p>
+          <p>Отправка заявки на бронирование и/или посещение заведения означает согласие с условиями оферты.</p>
+          <p><strong>3. Услуги и цены</strong></p>
+          <p>Перечень услуг и цены указаны на сайте и в меню заведения. Цены могут изменяться; актуальную стоимость уточняйте у персонала. Сайт не является публичной офертой в части фиксированных цен на весь ассортимент.</p>
+          <p><strong>4. Бронирование</strong></p>
+          <p>Заявка на бронирование бесплатна и не обязывает к оплате. Бронь считается подтверждённой после связи с администратором. Заведение вправе отказать в бронировании при отсутствии мест или по иным обоснованным причинам.</p>
+          <p><strong>5. Возраст</strong></p>
+          <p>Посещение заведения разрешено только лицам, достигшим 18 лет. Документ, удостоверяющий возраст, может быть запрошен.</p>
+          <p><strong>6. Ответственность</strong></p>
+          <p>Гость обязуется соблюдать правила поведения, не курить табак вне отведённых зон (услуги — паровые коктейли на основе бестабачных/специализированных смесей в рамках законодательства), не причинять ущерб имуществу.</p>
+          <p><strong>7. Прочее</strong></p>
+          <p>Оператор вправе изменять оферту; актуальная версия размещается на сайте.</p>
+        `
+      },
+      return: {
+        title: "Условия возврата и отказа",
+        body: `
+          <p><strong>1. Бронирование</strong></p>
+          <p>Отмена бронирования — бесплатно. Сообщите об отмене по телефону +7 (986) 928-40-44 как можно раньше.</p>
+          <p><strong>2. Оплаченные услуги</strong></p>
+          <p>Услуги (кальян, напитки, еда), оказанные и потреблённые в заведении, возврату не подлежат. Претензии по качеству принимаются до ухода гостя из зала.</p>
+          <p><strong>3. Предоплата</strong></p>
+          <p>Если предоплата взималась (по согласованию), при отмене визита не менее чем за 3 часа до назначенного времени — возврат в полном объёме тем же способом, которым была произведена оплата, в срок до 10 рабочих дней. При поздней отмене или неявке предоплата может быть удержана в счёт компенсации.</p>
+          <p><strong>4. Контакты по претензиям</strong></p>
+          <p>+7 (986) 928-40-44, г. Нижнекамск, просп. Мира, 93В.</p>
+        `
+      },
+      cookies: {
+        title: "Политика использования cookie",
+        body: `
+          <p><strong>1. Что такое cookie</strong></p>
+          <p>Cookie — небольшие файлы, сохраняемые браузером. Они помогают сайту работать и запоминать ваши настройки.</p>
+          <p><strong>2. Какие cookie мы используем</strong></p>
+          <p><em>Необходимые:</em> сохранение согласия на cookie (localStorage). Без них сайт не запомнит ваш выбор.</p>
+          <p><em>Сторонние:</em> при загрузке карты Яндекс.Карт и шрифтов Google Fonts соответствующие сервисы могут устанавливать свои cookie согласно их политикам.</p>
+          <p><strong>3. Управление</strong></p>
+          <p>Вы можете принять все cookie или ограничиться необходимыми через баннер. Также cookie можно отключить в настройках браузера.</p>
+          <p><strong>4. Аналитика и реклама</strong></p>
+          <p>Мы не подключаем стороннюю аналитику и рекламные SDK на этом сайте.</p>
+        `
+      },
+      requisites: {
+        title: "Реквизиты",
+        body: `
+          <p><strong>Торговое наименование:</strong> CoCoMangas — центр паровых коктейлей</p>
+          <p><strong>Адрес:</strong> 423570, Республика Татарстан, г. Нижнекамск, проспект Мира, 93В, 2 этаж (вход «Двери Бастион»)</p>
+          <p><strong>Телефон:</strong> +7 (986) 928-40-44</p>
+          <p><strong>Режим работы:</strong> ежедневно 10:00–02:00</p>
+          <p style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-elevated); border-radius: 8px; font-size: 0.85rem;">
+            <strong>Важно:</strong> полные юридические реквизиты (наименование юрлица / ИП, ИНН, ОГРН, расчётный счёт) необходимо указать владельцу заведения. Замените этот блок на актуальные данные из выписки ЕГРЮЛ/ЕГРИП.
+          </p>
+        `
+      },
+      deletion: {
+        title: "Удаление персональных данных",
+        body: `
+          <p>Чтобы удалить ваши персональные данные, оставленные через форму бронирования:</p>
+          <ol style="padding-left: 1.25rem; margin: 0.75rem 0;">
+            <li>Позвоните по номеру <strong>+7 (986) 928-40-44</strong> или напишите на контакты заведения.</li>
+            <li>Укажите имя и телефон, которые вы оставляли в заявке.</li>
+            <li>Мы удалим или обезличим данные в срок до 30 дней (если иное не требуется законом).</li>
+          </ol>
+          <p>Отзыв согласия на обработку персональных данных также осуществляется по указанным контактам.</p>
+          <p>Рассылки мы не ведём — отдельная отписка не требуется.</p>
+        `
+      }
+    };
+
+    const legalModal = document.getElementById("legalModal");
+    const legalModalTitle = document.getElementById("legalModalTitle");
+    const legalModalBody = document.getElementById("legalModalBody");
+    const legalModalClose = document.getElementById("legalModalClose");
+
+    function openLegal(key) {
+      const doc = legalDocs[key];
+      if (!doc) return;
+      legalModalTitle.textContent = doc.title;
+      legalModalBody.innerHTML = doc.body;
+      legalModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      legalModalClose.focus();
+    }
+
+    function closeLegal() {
+      legalModal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".legal-link").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        openLegal(link.dataset.legal);
+      });
+    });
+
+    legalModalClose.addEventListener("click", closeLegal);
+    legalModal.addEventListener("click", (e) => {
+      if (e.target === legalModal) closeLegal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && legalModal.style.display === "flex") closeLegal();
+    });
+
+    // Cookie banner
+    const cookieBanner = document.getElementById("cookieBanner");
+    const cookieKey = "cocomangas_cookie_consent";
+    if (!localStorage.getItem(cookieKey)) {
+      cookieBanner.style.display = "block";
+    }
+    document.getElementById("cookieAccept").addEventListener("click", () => {
+      localStorage.setItem(cookieKey, "all");
+      cookieBanner.style.display = "none";
+    });
+    document.getElementById("cookieReject").addEventListener("click", () => {
+      localStorage.setItem(cookieKey, "necessary");
+      cookieBanner.style.display = "none";
+    });
+  </script>
+</body>
+</html>
